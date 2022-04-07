@@ -12,7 +12,7 @@ func TranslateDynamic(lang string, container any, field string) string {
 	case reflect.Map:
 		// Cast to simplify code
 		container := container.(map[string]any)
-		// If English, return default (without language suffix)
+		// Check default (return without language suffix)
 		if lang == Default {
 			return container[field].(string)
 		}
@@ -27,7 +27,7 @@ func TranslateDynamic(lang string, container any, field string) string {
 		// Default
 		return container[field].(string)
 	case reflect.Struct:
-		// If English, return default (without language suffix)
+		// Check default (return without language suffix)
 		if lang == Default {
 			return reflect.Indirect(reflect.ValueOf(container)).FieldByName(field).String()
 		}
