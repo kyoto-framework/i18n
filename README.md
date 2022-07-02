@@ -1,89 +1,31 @@
 
-# i18n
+# Kyoto project is moving from GitHub to sr.ht
 
-Minimalistic internationalizing helper.
+https://sr.ht/~kyoto-framework/kyoto-framework/
 
-## Installation
+## Why?
 
-- Install package
+Recent GitHub updates and overall company policy goes against my vision of open source projects.
+This opinion is shared by many people (https://sfconservancy.org/GiveUpGitHub/#ICE-contract-details).
+So I decided to move the project to sr.ht, which policy and actions are quite more transparent.
 
-  ```bash
-  go get github.com/kyoto-framework/i18n
-  ```
+## How?
 
-- Parse translation files from specified directory
+As far as a go packaging system makes host changing painful enough,
+there is no chance to keep old versions on the new host.
+I'm not going to do everything at once
+and definitely not going to delete the project from GitHub in nearest 2 months.
+But the development of new features and versions will be continued only on sr.ht.
+Current projects on GitHub will be archived and removed after ~2 months.
 
-  ```go
-  i18n.Parse("./i18n")
-  ```
+## What I need to do?
 
-- (Optional) Attach template functions
+If you're using version 0.x, please, make a fork, or create a local project copy.
+For those who are using 1.x, it's enough to switch references from "github.com/kyoto-framework" to "git.sr.ht/~kyoto-framework".
 
-  ```go
-    // If you're using kyoto framewrok
-    func FuncMap() template.FuncMap {
-        return render.ComposeFuncMap(
-            i18n.FuncMap(),    // i18n functions
-            ...
-        )
-    }
+## How to contribute?
 
-    // If you're using i18n separately
-    func AttachI18N(fmap template.FuncMap) {
-        for k, v := range i18n.FuncMap() {
-            fmap[k] = v
-        }
-    }
-  ```
-
-## Usage
-
-First, you'll have to create translation files.  
-This module uses structured `.yaml` to define such files.
-We call this files "pages".
-
-Your pages should be structured as follows:
-
-```yaml
-<language-code-1>:
-    <group>:
-        <key>: <value>
-
-<language-code-2>:
-    <group>:
-        <key>: <value>
-```
-
-Please note, file names also matter.
-It will be used as a translation path, as well as a group and key.
-
-To use specified translations, you have `i18n.TranslateStatic(lang, page, group, key)` Go function
-and `{{ translateStatic lang page group key }}` template function.
-
-Example:
-
-```go
-lang := "en"
-content := i18n.TranslateStatic(lang, "index", "home", "content")
-```
-
-This module also provides a way to extract translations from dynamic containers (Go maps and structs).
-To do this, you can use `i18n.TranslateDynamic(lang, container, field)` Go function
-and `{{ translateDynamic lang container field }}` template function, where `container` is a Go map or struct.
-Field name will be chosen based on the language provided.
-In case of default language ("en" by default), value will be fetched according to the field name.
-In case of non-default language, value will be fetched according to the field name + language code (f.e. `ContentRU`, `Content_ru` or `content_ru`).
-
-Example:
-
-```go
-data := map[string]string{"Content": "Hello, world!", "ContentES": "Hola, mundo!"}
-contenten := i18n.TranslateDynamic("en", data, "Content") // "Hello, world!"
-contentes := i18n.TranslateDynamic("es", data, "Content") // "Hola, mundo!"
-```
-
-## Motivation
-
-- Almost every solution we found have really overcomplicated usage for our simple needs (take a needed string from a file, accoring to provided language)
-- Most of solutions are not providing any template functions
-- There are no functions to dynamically take translated value from a struct or map
+sr.ht uses mailing lists for communication, announcements, patches etc.
+There are no PRs like GitHub.
+I don't know much about it, but I'm going to dig into it in the near future (https://man.sr.ht/lists.sr.ht/).
+For now, those who want to contribute, I'll just add read/write permissions to the project.
