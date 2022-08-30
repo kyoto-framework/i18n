@@ -32,7 +32,7 @@ func TranslateDynamic(lang string, container any, field string) string {
 			return reflect.Indirect(reflect.ValueOf(container)).FieldByName(field).String()
 		}
 		// Check uppercase (camel case) suffix
-		if val := reflect.Indirect(reflect.ValueOf(container)).FieldByName(field + strings.ToUpper(lang)).String(); len(val) != 0 {
+		if val := reflect.Indirect(reflect.ValueOf(container)).FieldByName(field + strings.ToUpper(lang)).String(); len(val) != 0 && val != "<invalid Value>" {
 			return val
 		}
 		// Default
