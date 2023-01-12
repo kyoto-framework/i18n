@@ -8,7 +8,7 @@ Minimalistic internationalizing helper.
 - Install package
 
   ```bash
-  go get git.sr.ht/~kyoto-framework/i18n
+  go get github.com/kyoto-framework/i18n/v2
   ```
 
 - Parse translation files from specified directory
