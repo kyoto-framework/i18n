@@ -1,4 +1,4 @@
-module git.sr.ht/~kyoto-framework/i18n
+module github.com/kyoto-framework/i18n/v2
 
 go 1.18
 
